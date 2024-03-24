@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://timoshevsky.com/sitemap-index.xml
+Host: https://timoshevsky.com

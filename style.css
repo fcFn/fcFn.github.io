@@ -1,10 +1,68 @@
 /* ═══════════════════════════════════════════════════════
    Peter Timoshevsky — Personal Website
-   Design System: Dark mode, glassmorphism, gradient accents
+   Design System: Light/dark mode, glassmorphism, gradient accents
    ═══════════════════════════════════════════════════════ */
 
 /* ─── CSS Custom Properties ─── */
 :root {
+  /* Background */
+  --bg-primary: #f5f3f0;
+  --bg-secondary: #ebe8e4;
+  --bg-card: rgba(0, 0, 0, 0.03);
+
+  /* Text */
+  --text-primary: #1a1a2e;
+  --text-secondary: #3a3a4a;
+  --text-muted: #6a6a7a;
+
+  /* Accent gradient */
+  --accent-1: #6d28d9;
+  --accent-2: #8b5cf6;
+  --accent-3: #7c3aed;
+  --accent-4: #4f46e5;
+
+  /* Glass */
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-hover-bg: rgba(255, 255, 255, 0.75);
+  --glass-hover-border: rgba(0, 0, 0, 0.14);
+
+  /* Nav */
+  --nav-bg: rgba(245, 243, 240, 0.7);
+  --nav-border: rgba(0, 0, 0, 0.06);
+
+  /* Orb */
+  --orb-opacity: 0.15;
+
+  /* Footer */
+  --footer-border: rgba(0, 0, 0, 0.06);
+
+  /* Selection */
+  --selection-color: #fff;
+
+  /* Tag */
+  --tag-bg: rgba(109, 40, 217, 0.08);
+  --tag-border: rgba(109, 40, 217, 0.15);
+
+  /* Btn primary shadow */
+  --btn-primary-shadow: rgba(109, 40, 217, 0.25);
+  --btn-primary-hover-shadow: rgba(109, 40, 217, 0.4);
+
+  /* Scroll line */
+  --scroll-gradient-end: transparent;
+
+  /* Spacing */
+  --section-padding: 120px 0;
+  --container-max: 1100px;
+  --nav-height: 72px;
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-default: 0.35s var(--ease-out);
+}
+
+/* ─── Dark Theme ─── */
+html.dark {
   /* Background */
   --bg-primary: #0a0a0f;
   --bg-secondary: #12121a;
@@ -12,8 +70,8 @@
 
   /* Text */
   --text-primary: #f0f0f5;
-  --text-secondary: #9494a8;
-  --text-muted: #5c5c72;
+  --text-secondary: #e3e2e2;
+  --text-muted: #cfcfcf;
 
   /* Accent gradient */
   --accent-1: #7c3aed;
@@ -27,14 +85,29 @@
   --glass-hover-bg: rgba(255, 255, 255, 0.07);
   --glass-hover-border: rgba(255, 255, 255, 0.14);
 
-  /* Spacing */
-  --section-padding: 120px 0;
-  --container-max: 1100px;
-  --nav-height: 72px;
+  /* Nav */
+  --nav-bg: rgba(10, 10, 15, 0.7);
+  --nav-border: rgba(255, 255, 255, 0.05);
 
-  /* Transitions */
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --transition-default: 0.35s var(--ease-out);
+  /* Orb */
+  --orb-opacity: 0.25;
+
+  /* Footer */
+  --footer-border: rgba(255, 255, 255, 0.04);
+
+  /* Selection */
+  --selection-color: #fff;
+
+  /* Tag */
+  --tag-bg: rgba(124, 58, 237, 0.1);
+  --tag-border: rgba(124, 58, 237, 0.15);
+
+  /* Btn primary shadow */
+  --btn-primary-shadow: rgba(124, 58, 237, 0.3);
+  --btn-primary-hover-shadow: rgba(124, 58, 237, 0.45);
+
+  /* Scroll line */
+  --scroll-gradient-end: transparent;
 }
 
 
@@ -50,6 +123,11 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--nav-height);
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 body {
@@ -65,7 +143,7 @@ body {
 
 ::selection {
   background: var(--accent-1);
-  color: #fff;
+  color: var(--selection-color);
 }
 
 a {
@@ -128,10 +206,10 @@ img {
   height: var(--nav-height);
   display: flex;
   align-items: center;
-  background: rgba(10, 10, 15, 0.7);
+  background: var(--nav-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--nav-border);
 }
 
 .nav-inner {
@@ -162,6 +240,7 @@ img {
 
 .nav-links {
   display: flex;
+  align-items: center;
   gap: 36px;
 }
 
@@ -172,6 +251,36 @@ img {
   transition: color var(--transition-default);
   position: relative;
 }
+
+/* ─── Theme Toggle ─── */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: all var(--transition-default);
+}
+
+.theme-toggle:hover {
+  color: var(--text-primary);
+  border-color: var(--glass-hover-border);
+  background: var(--glass-bg);
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: block; }
+html.dark .theme-toggle .icon-sun { display: block; }
+html.dark .theme-toggle .icon-moon { display: none; }
 
 .nav-links a::after {
   content: '';
@@ -216,7 +325,7 @@ img {
   position: absolute;
   border-radius: 50%;
   filter: blur(100px);
-  opacity: 0.25;
+  opacity: var(--orb-opacity);
 }
 
 .orb-1 {
@@ -244,7 +353,7 @@ img {
   top: 40%;
   left: 30%;
   animation: orbFloat3 15s ease-in-out infinite alternate;
-  opacity: 0.12;
+  opacity: calc(var(--orb-opacity) * 0.48);
 }
 
 @keyframes orbFloat1 {
@@ -348,12 +457,12 @@ img {
 .btn-primary {
   background: linear-gradient(135deg, var(--accent-1), var(--accent-4));
   color: #fff;
-  box-shadow: 0 4px 24px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 4px 24px var(--btn-primary-shadow);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(124, 58, 237, 0.45);
+  box-shadow: 0 8px 32px var(--btn-primary-hover-shadow);
 }
 
 .btn-outline {
@@ -534,9 +643,9 @@ img {
   font-size: 0.7rem;
   padding: 4px 12px;
   border-radius: 20px;
-  background: rgba(124, 58, 237, 0.1);
+  background: var(--tag-bg);
   color: var(--accent-3);
-  border: 1px solid rgba(124, 58, 237, 0.15);
+  border: 1px solid var(--tag-border);
   letter-spacing: 0.5px;
 }
 
@@ -684,7 +793,7 @@ img {
 /* ─── Footer ─── */
 .footer {
   padding: 40px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border-top: 1px solid var(--footer-border);
 }
 
 .footer-text {

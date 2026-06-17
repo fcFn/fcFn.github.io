@@ -371,11 +371,51 @@ html.dark .theme-toggle .icon-moon { display: none; }
   to { transform: translate(40px, -80px) scale(0.9); }
 }
 
-.hero-content {
+.hero-inner {
   position: relative;
   z-index: 1;
-  max-width: 720px;
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  max-width: var(--container-max);
+  width: 100%;
+}
+
+.hero-content {
+  flex: 1;
   animation: fadeInUp 0.9s var(--ease-out) both;
+}
+
+/* ─── Hero Portrait ─── */
+.hero-portrait {
+  flex-shrink: 0;
+  animation: fadeInUp 0.9s var(--ease-out) 0.15s both;
+}
+
+.portrait-ring {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  padding: 4px;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2), var(--accent-3), var(--accent-4));
+  box-shadow:
+    0 0 40px rgba(124, 58, 237, 0.15),
+    0 0 80px rgba(124, 58, 237, 0.08);
+  animation: portraitFloat 6s ease-in-out infinite alternate;
+}
+
+.portrait-ring img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+@keyframes portraitFloat {
+  from { transform: translateY(0); }
+  to { transform: translateY(-12px); }
 }
 
 @keyframes fadeInUp {
@@ -818,6 +858,11 @@ html.dark .theme-toggle .icon-moon { display: none; }
     gap: 40px;
   }
 
+  .portrait-ring {
+    width: 220px;
+    height: 220px;
+  }
+
   .about-stats {
     flex-direction: row;
     flex-wrap: wrap;
@@ -878,16 +923,30 @@ html.dark .theme-toggle .icon-moon { display: none; }
     padding: 0 20px;
   }
 
+  .hero-inner {
+    flex-direction: column-reverse;
+    gap: 40px;
+    text-align: center;
+  }
+
   .hero-content {
-    padding-top: 80px;
+    padding-top: 0;
   }
 
   .hero-description {
+    margin-left: auto;
+    margin-right: auto;
     font-size: 0.95rem;
+  }
+
+  .portrait-ring {
+    width: 180px;
+    height: 180px;
   }
 
   .hero-cta {
     flex-direction: column;
+    align-items: center;
   }
 
   .btn {
